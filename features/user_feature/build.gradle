@@ -1,0 +1,26 @@
+apply plugin: 'kotlin'
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
+
+dependencies {
+    implementation project(":core")
+
+    // KOTLIN
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+
+    // COROUTINES
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
+
+
+    // JUNIT
+    testImplementation("junit:junit:$junit_version")
+
+    // MOCKK
+    testImplementation("io.mockk:mockk:$mockk_version")
+
+    // MOCKITO
+    // testImplementation("org.mockito:mockito-inline:$mockito_version")
+    // testImplementation("org.mockito.kotlin:mockito-kotlin:$mockito_version")
+}
