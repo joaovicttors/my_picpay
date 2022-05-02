@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "my_picpay"
 include ':app'
+include ':core'
