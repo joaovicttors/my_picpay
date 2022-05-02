@@ -21,16 +21,16 @@ import org.junit.Test
 internal class UserLocalDataSourceImplTest {
 
     private lateinit var mapper: UserEntityMapper
+    private lateinit var service: RoomUserService
     private lateinit var dispatcher: CoroutineDispatcher
-    private lateinit var roomService: RoomUserService
     private lateinit var dataSource: UserLocalDataSource
 
     @Before
     fun before() {
         mapper = mockk()
+        service = mockk()
         dispatcher = UnconfinedTestDispatcher()
-        roomService = mockk()
-        dataSource = UserLocalDataSourceImpl(mapper, dispatcher, roomService)
+        dataSource = UserLocalDataSourceImpl(mapper, service, dispatcher)
     }
 
     @After
@@ -45,7 +45,7 @@ internal class UserLocalDataSourceImplTest {
 
             // given
             // dado ao chamar get user list from room service, retornar um error
-            coEvery { roomService.getUserList() } throws RuntimeException(errorMessage)
+            coEvery { service.getUserList() } throws RuntimeException(errorMessage)
 
             // when
             // quando for chamando o data source
@@ -67,7 +67,7 @@ internal class UserLocalDataSourceImplTest {
             // given
             // dado ao chamar get user list from room service, retornar um success
             coEvery { mapper.mapToDomainEntity(userEntityList[0]) } returns userList[0]
-            coEvery { roomService.getUserList() } returns userEntityList
+            coEvery { service.getUserList() } returns userEntityList
 
             // when
             // quando for chamando o data source
@@ -90,7 +90,7 @@ internal class UserLocalDataSourceImplTest {
             // given
             // dado ao chamar insert user list from room service, retornar um error
             coEvery { mapper.mapFromDomainEntity(userList[0]) } returns userEntityList[0]
-            coEvery { roomService.insertUserList(userEntityList) } throws RuntimeException(errorMessage)
+            coEvery { service.insertUserList(userEntityList) } throws RuntimeException(errorMessage)
 
             // when
             // quando for chamando o data source
@@ -112,7 +112,7 @@ internal class UserLocalDataSourceImplTest {
             // given
             // dado ao chamar get insert user list from room service, retornar um success
             coEvery { mapper.mapFromDomainEntity(userList[0]) } returns userEntityList[0]
-            coEvery { roomService.insertUserList(userEntityList) } returns Unit
+            coEvery { service.insertUserList(userEntityList) } returns Unit
 
             // when
             // quando for chamando o data source

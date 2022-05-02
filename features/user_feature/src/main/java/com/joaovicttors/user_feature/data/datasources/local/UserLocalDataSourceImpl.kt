@@ -9,14 +9,14 @@ import kotlinx.coroutines.withContext
 
 class UserLocalDataSourceImpl(
     private val mapper: UserEntityMapper,
-    private val dispatcher: CoroutineDispatcher,
-    private val roomUserService: RoomUserService
+    private val service: RoomUserService,
+    private val dispatcher: CoroutineDispatcher
 ) : UserLocalDataSource {
 
     override suspend fun getUserList(): Response<List<User>> =
         withContext(dispatcher) {
             try {
-                return@withContext roomUserService.getUserList().let { data ->
+                return@withContext service.getUserList().let { data ->
                     data.map { mapper.mapToDomainEntity(it) }.let { mappedData ->
                         Response.Success(mappedData)
                     }
@@ -31,7 +31,7 @@ class UserLocalDataSourceImpl(
         withContext(dispatcher) {
             try {
                 return@withContext userList.map { mapper.mapFromDomainEntity(it) }.let { mappedData ->
-                    roomUserService.insertUserList(mappedData).let { data ->
+                    service.insertUserList(mappedData).let { data ->
                         Response.Success(data)
                     }
                 }
