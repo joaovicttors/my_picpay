@@ -1,7 +1,7 @@
-package com.joaovicttors.user_feature.data.repositories
+package com.joaovicttors.user_feature.domain.repositories
 
 import com.joaovicttors.core.Response
-import com.joaovicttors.user_feature.data.entities.User
+import com.joaovicttors.user_feature.domain.entities.User
 
 interface UserRepository {
 

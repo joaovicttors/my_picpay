@@ -1,4 +1,4 @@
-package com.joaovicttors.user_feature.data.entities
+package com.joaovicttors.user_feature.domain.entities
 
 data class User(
     val image: String?,

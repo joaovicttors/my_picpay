@@ -1,8 +1,8 @@
-package com.joaovicttors.user_feature.data.usescases
+package com.joaovicttors.user_feature.domain.usescases
 
 import com.joaovicttors.core.Response
-import com.joaovicttors.user_feature.data.entities.User
-import com.joaovicttors.user_feature.data.repositories.UserRepository
+import com.joaovicttors.user_feature.domain.entities.User
+import com.joaovicttors.user_feature.domain.repositories.UserRepository
 import io.mockk.*
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
