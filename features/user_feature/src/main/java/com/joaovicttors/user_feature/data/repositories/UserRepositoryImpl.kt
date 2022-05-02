@@ -1,8 +1,8 @@
 package com.joaovicttors.user_feature.data.repositories
 
 import com.joaovicttors.core.Response
-import com.joaovicttors.user_feature.data.datasources.UserLocalDataSource
-import com.joaovicttors.user_feature.data.datasources.UserRemoteDataSource
+import com.joaovicttors.user_feature.data.datasources.local.UserLocalDataSource
+import com.joaovicttors.user_feature.data.datasources.remote.UserRemoteDataSource
 import com.joaovicttors.user_feature.domain.entities.User
 import com.joaovicttors.user_feature.domain.repositories.UserRepository
 

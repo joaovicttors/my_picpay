@@ -1,4 +1,4 @@
-package com.joaovicttors.user_feature.data.datasources
+package com.joaovicttors.user_feature.data.datasources.remote
 
 import com.joaovicttors.core.Response
 import com.joaovicttors.user_feature.domain.entities.User
