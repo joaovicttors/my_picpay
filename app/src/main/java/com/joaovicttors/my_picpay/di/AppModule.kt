@@ -4,14 +4,18 @@ import androidx.room.Room
 import com.google.gson.GsonBuilder
 import com.joaovicttors.my_picpay.builders.DatabaseTest
 import com.joaovicttors.user_feature.data.datasources.remote.services.RetrofitUserService
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import org.koin.dsl.single
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
+// TODO joao.santana
 object AppModule {
 
     fun allModules(): List<Module> = listOf(
@@ -20,6 +24,8 @@ object AppModule {
     )
 
     private val providersModule = module {
+
+        single { Dispatchers.IO }
 
         single {
             Retrofit.Builder()
