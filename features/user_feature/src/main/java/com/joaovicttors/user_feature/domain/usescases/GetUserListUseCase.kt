@@ -4,6 +4,7 @@ import com.joaovicttors.core.Response
 import com.joaovicttors.user_feature.domain.entities.User
 import com.joaovicttors.user_feature.domain.repositories.UserRepository
 
+// TODO joao.santana modificar o unit test tambem
 class GetUserListUseCase(
     private val userRepository: UserRepository
 ) {
@@ -11,7 +12,13 @@ class GetUserListUseCase(
     suspend operator fun invoke(): Response<List<User>> {
         return when (val localResponse = userRepository.getUserListFromLocalStorage()) {
             is Response.Error -> callRemoteStorage()
-            is Response.Success -> localResponse
+            is Response.Success -> {
+                if (localResponse.data.isEmpty()) {
+                    return callRemoteStorage()
+                }
+
+                return localResponse
+            }
         }
     }
 
