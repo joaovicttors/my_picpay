@@ -59,9 +59,17 @@ dependencies {
     // GSON
     implementation("com.google.code.gson:gson:$gson_version")
 
+    // KOIN
+    implementation("io.insert-koin:koin-core:$koin_version")
+    implementation("io.insert-koin:koin-android:$koin_version")
+
     // RETROFIT
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
+
+    // ROOM
+    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-runtime:$room_version")
 
     // JUNIT
     testImplementation("junit:junit:$junit_version")

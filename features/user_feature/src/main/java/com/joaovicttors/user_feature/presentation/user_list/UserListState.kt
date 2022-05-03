@@ -1,4 +1,4 @@
-package com.joaovicttors.user_feature.presentation.user_list.screen
+package com.joaovicttors.user_feature.presentation.user_list
 
 import com.joaovicttors.user_feature.domain.entities.User
 

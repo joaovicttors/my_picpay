@@ -4,6 +4,7 @@ import com.joaovicttors.core.Response
 import com.joaovicttors.user_feature.domain.entities.User
 import com.joaovicttors.user_feature.domain.usescases.GetUserListUseCase
 import com.joaovicttors.user_feature.presentation.MainCoroutineScope
+import com.joaovicttors.user_feature.presentation.user_list.UserListState
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
