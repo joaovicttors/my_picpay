@@ -9,6 +9,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -30,44 +31,75 @@ internal class UserListViewModelTest {
         viewModel = UserListViewModel(getUserListUseCase)
     }
 
-    @After
-    fun after() {
+    @Test
+    fun `when getUserListUseCase is calling should getUserList returns loading true on view state`() =
+        runTest { ->
+            val expectedLoading = true
+            val expectedData = emptyList<User>()
+            val expectedErrorMessage = null
 
-    }
+            coEvery { getUserListUseCase() } coAnswers { delay(1000); Response.Success(expectedData)}
+
+            viewModel.getUserList()
+
+            viewModel.state.value.also { state ->
+                assertEquals(expectedLoading, state.isLoading)
+                assertEquals(expectedData, state.data)
+                assertEquals(expectedErrorMessage, state.errorMessage)
+            }
+        }
 
     @Test
-    fun `test test`() = runTest {
-        val errorMessage = "error"
-        val expectedState = UserListState(errorMessage = errorMessage)
+    fun `when getUserListUseCase returns error response should getUserList returns error message on view state`() =
+        runTest { ->
+            val expectedLoading = false
+            val expectedData = emptyList<User>()
+            val expectedErrorMessage = "Error"
 
-        coEvery { getUserListUseCase() } returns Response.Error(errorMessage)
+            coEvery { getUserListUseCase() } returns Response.Error(expectedErrorMessage)
 
-        viewModel.getUserList()
+            viewModel.getUserList()
 
-        assertEquals(expectedState, viewModel.state.value)
-    }
-
-    @Test
-    fun `test test 2`() = runTest {
-        val errorMessage = "error"
-        val expectedState = UserListState(errorMessage = errorMessage)
-
-        coEvery { getUserListUseCase() } throws RuntimeException(errorMessage)
-
-        viewModel.getUserList()
-
-        assertEquals(expectedState, viewModel.state.value)
-    }
+            viewModel.state.value.also { state ->
+                assertEquals(expectedLoading, state.isLoading)
+                assertEquals(expectedData, state.data)
+                assertEquals(expectedErrorMessage, state.errorMessage)
+            }
+        }
 
     @Test
-    fun `test test 3`() = runTest {
-        val userList = listOf<User>()
-        val expectedState = UserListState(data = userList)
+    fun `when getUserListUseCase returns success response should getUserList returns user list on view state`() =
+        runTest { ->
+            val expectedLoading = false
+            val expectedData = listOf<User>(mockk())
+            val expectedErrorMessage = null
 
-        coEvery { getUserListUseCase() } returns Response.Success(userList)
+            coEvery { getUserListUseCase() } returns Response.Success(expectedData)
 
-        viewModel.getUserList()
+            viewModel.getUserList()
 
-        assertEquals(expectedState, viewModel.state.value)
-    }
+            viewModel.state.value.also { state ->
+                assertEquals(expectedLoading, state.isLoading)
+                assertEquals(expectedData, state.data)
+                assertEquals(expectedErrorMessage, state.errorMessage)
+            }
+        }
+
+    @Test
+    fun `when getUserListUseCase throws an error should getUserList returns error message on view state`() =
+        runTest { ->
+            val expectedLoading = false
+            val expectedData = emptyList<User>()
+            val expectedErrorMessage = "Error"
+
+            coEvery { getUserListUseCase() } throws RuntimeException(expectedErrorMessage)
+
+            viewModel.getUserList()
+
+            viewModel.state.value.also { state ->
+                assertEquals(expectedLoading, state.isLoading)
+                assertEquals(expectedData, state.data)
+                assertEquals(expectedErrorMessage, state.errorMessage)
+            }
+        }
 }

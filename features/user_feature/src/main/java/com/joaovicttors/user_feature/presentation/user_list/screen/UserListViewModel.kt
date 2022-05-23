@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.joaovicttors.core.Response
 import com.joaovicttors.user_feature.domain.usescases.GetUserListUseCase
 import com.joaovicttors.user_feature.presentation.user_list.UserListState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -18,7 +20,7 @@ class UserListViewModel(
     private val _state: MutableStateFlow<UserListState> = MutableStateFlow(UserListState())
 
     fun getUserList() {
-        viewModelScope.launch {
+        viewModelScope.launch() {
             try {
                 _state.update { it.copy(isLoading = true) }
 

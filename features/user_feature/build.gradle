@@ -12,6 +12,8 @@ android {
         targetSdk 32
 
         vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "com.joaovicttors.user_feature.TestAppJUnitRunner"
     }
 
     dataBinding {
@@ -65,6 +67,15 @@ dependencies {
     // KOIN
     implementation("io.insert-koin:koin-core:$koin_version")
     implementation("io.insert-koin:koin-android:$koin_version")
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    testImplementation "io.insert-koin:mockito-android:$koin_version"
+    androidTestImplementation("io.insert-koin:koin-test:$koin_version")
+    androidTestImplementation("io.insert-koin:koin-android:$koin_version")
+    androidTestImplementation ("io.insert-koin:koin-test-junit4:$koin_version")
+
+    debugImplementation("androidx.fragment:fragment-testing:1.4.1")
+    kaptAndroidTest 'androidx.databinding:databinding-compiler:7.2.0'
+
 
     // RETROFIT
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
@@ -77,13 +88,23 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.room:room-runtime:$room_version")
 
+    // SHIMMER
+    implementation("com.facebook.shimmer:shimmer:$shimmer_version")
+
     // JUNIT
     testImplementation("junit:junit:$junit_version")
 
     // MOCKK
     testImplementation("io.mockk:mockk:$mockk_version")
+    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 
-    // MOCKITO
-    // testImplementation("org.mockito:mockito-inline:$mockito_version")
-    // testImplementation("org.mockito.kotlin:mockito-kotlin:$mockito_version")
+    // Android test runner and rules
+    androidTestImplementation "androidx.test:runner:$test_runner_version"
+    androidTestImplementation "androidx.test:core:$test_core_version"
+    androidTestImplementation "androidx.test.ext:junit:$test_junit_version"
+    androidTestImplementation "androidx.test:rules:$test_rules_version"
+
+    // ESPRESSO
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_intents_version"
 }

@@ -7,6 +7,7 @@ import com.joaovicttors.user_feature.data.datasources.remote.services.RetrofitUs
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -28,9 +29,21 @@ object AppModule {
         single { Dispatchers.IO }
 
         single {
+            HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+        }
+
+        single {
+            OkHttpClient.Builder()
+                .addInterceptor(get<HttpLoggingInterceptor>())
+                .build()
+        }
+
+        single {
             Retrofit.Builder()
                 .baseUrl("https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/")
-                .client(OkHttpClient.Builder().build())
+                .client(get())
                 .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
                 .build()
         }
